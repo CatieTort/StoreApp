@@ -35,6 +35,27 @@ namespace StoreApp.Services
             return groupedList;
         }
 
+        public List<Items> GetItemMax(string itemName)
+        {
+            var item = _items.Find(i => i.Name == itemName).ToList();
+
+
+            for (int i = 0; i < item.Count; i++)
+            {
+                if (item[i].Price >= item[i + 1].Price)
+                {
+                    item.Remove(item[i + 1]);
+                }
+                else
+                {
+                    item.Remove(item[i]);
+                }
+            }
+
+            return item == null ? null : item;
+          
+        }
+
         public Items Create(Items item)
         {
             _items.InsertOne(item);
@@ -46,9 +67,9 @@ namespace StoreApp.Services
             _items.ReplaceOne(item => item.Id == id, itemChanged);
         }
 
-        public void Remove(Items itemRm)
+        public void Remove(string id)
         {
-            _items.DeleteOne(item => item.Id == itemRm.Id);
+            _items.DeleteOne(item => item.Id == id);
         }
 
     }
