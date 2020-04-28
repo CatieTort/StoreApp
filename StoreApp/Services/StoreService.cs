@@ -39,37 +39,27 @@ namespace StoreApp.Services
         {
             var item = _items.Find(i => i.Name == itemName).ToList();
 
-
-            for (int i = 0; i < item.Count; i++)
+            if(item.Count <= 1)
             {
-                if (item[i].Price >= item[i + 1].Price)
-                {
-                    item.Remove(item[i + 1]);
-                }
-                else
-                {
-                    item.Remove(item[i]);
-                }
+                return item == null ? null : item;
             }
+            else
+            {
+                for (int i = 0; i < item.Count; i++)
+                {
+                    if (item[i].Price >= item[i + 1].Price)
+                    {
+                        item.Remove(item[i + 1]);
+                    }
+                    else
+                    {
+                        item.Remove(item[i]);
+                    }
+                }
 
-            return item == null ? null : item;
+                return item == null ? null : item;
+            }
           
-        }
-
-        public Items Create(Items item)
-        {
-            _items.InsertOne(item);
-            return item;
-        }
-
-        public void Update(string id, Items itemChanged)
-        {
-            _items.ReplaceOne(item => item.Id == id, itemChanged);
-        }
-
-        public void Remove(string id)
-        {
-            _items.DeleteOne(item => item.Id == id);
         }
 
     }

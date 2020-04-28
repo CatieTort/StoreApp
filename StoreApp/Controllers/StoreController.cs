@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Services;
-using StoreApp.Models;
-using MongoDB.Bson;
 using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,25 +41,5 @@ namespace StoreApp.Controllers
             return Json(storeService.GetItemMax(name));
         }
 
-        // POST api/store
-        [HttpPost]
-        public void Post([FromBody]Items item)
-        {
-            storeService.Create(item);
-        }
-
-        // PUT api/store/id
-        [HttpPut("{id}")]
-        public void Put(string id, [FromBody]Items itemChanged)
-        {
-            storeService.Update(id, itemChanged);
-        }
-
-        // DELETE api/store/`${id}`
-        [HttpDelete("{id}")]
-        public void Delete(string id)
-        {
-            storeService.Remove(id);
-        }
     }
 }

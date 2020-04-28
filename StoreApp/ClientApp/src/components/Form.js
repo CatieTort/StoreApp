@@ -1,22 +1,30 @@
-﻿import React, {useState, useEffect} from 'react'
-import { createNewItem, getMax } from './FetchData';
+﻿import React, {useState, useEffect} from 'react';
 
 function Form(props) {
     const [input, setInput] = useState("");
-    const [newItemName, setNewItemName] = useState('');
-    const [newItemPrice, setNewItemPrice] = useState('');
     const [valid, validateDone] = useState(false);
     const [hasError, setError] = useState(false);
     const [errMsg, setErrorMsg] = useState("");
 
+
     useEffect(() => {
-
-    })
-
+        if(valid === true) {
+            props.getMax(input)
+            validateDone(false)
+        }
+    }, [valid])
 
     const clearErrors = () => {
             setError(false);
             setErrorMsg("")
+    }
+
+    const handleClear = () => {
+        props.clearResults()
+        setInput('')
+        if(hasError == true) {
+            clearErrors()
+        }
     }
 
     const validateInput = () => {
@@ -44,32 +52,22 @@ function Form(props) {
         validateInput()
     }
 
-    const handleCreateItem = (e) => {
-        e.preventDefault()
-        let newItem = { name: newItemName, price: parseInt(newItemPrice) }
-        createNewItem(newItem)
-    }
-
-    const createForm = (<div className="form__container">
-                <label htmlFor="name">Item Name</label>
-                <input className="form__input" type="text" name="name" onChange={e => setNewItemName(e.target.value)} />
-
-                <label htmlFor="price">Price</label>
-                <input className="form__input" type="text" name="price" onChange={e => setNewItemPrice(e.target.value)} />
-
-                <button className="form__btn" type="button" onClick={e => handleCreateItem(e)}>Create Item</button>
-            </div>)
 
     const maxPriceForm = (<><div className="form__error-msg">{errMsg}</div>
         <div className="form__container">
             <label htmlFor="name">Item Name:</label>
-            <input className="form__input" type="text" name="name" onClick={clearErrors} onChange={e => setInput(e.target.value)} />
-            <button className="form__btn" type="button" onClick={e => handleSubmit(e)}>Submit</button>
+            <input
+                className={hasError ? `form__input hasError` : `form__input`}
+                type="text" name="name"
+                onClick={handleClear}
+                onChange={e => setInput(e.target.value)}
+            />
+            <button className="button form__btn" type="button" onClick={e => handleSubmit(e)}>Submit</button>
             </div></>)
 
     return (
         <>
-        {props.create ? createForm : maxPriceForm}
+        {maxPriceForm}
         </>
     )
 
