@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Services;
 using StoreApp.Models;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -44,7 +45,6 @@ namespace StoreApp.Controllers
 
         // POST api/store
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public void Post([FromBody]Items item)
         {
             storeService.Create(item);

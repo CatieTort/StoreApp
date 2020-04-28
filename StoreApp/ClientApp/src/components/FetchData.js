@@ -5,14 +5,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function FetchData() {
 
     const [items, setItems] = useState([]);
-    const [maxPrice, setMaxItem] = useState([]);
-    const [valid, validateDone] = useState(false);
     const [loading, setLoading] = useState(true);
+
     const [input, setInput] = useState("");
+    const [maxPrice, setMaxItem] = useState([]);
+
+    const [valid, validateDone] = useState(false);
     const [hasError, setError] = useState(false);
     const [errMsg, setErrorMsg] = useState("");
+
+    const [newItemName, setNewItemName] = useState('');
+    const [newItemPrice, setNewItemPrice] = useState('');
    
   
+    //TODO: Break up into a few components
+    //error validation of form, ui styling
+    //All styling
+
 
     useEffect(() => {
       
@@ -20,7 +29,6 @@ function FetchData() {
            getItemData();
        }
        if (valid == true) {
-           console.log(input)
            getMax()
        }
        
@@ -56,18 +64,28 @@ function FetchData() {
         validateInput()
     }
 
+
+    const handleCreateItem = (e) => {
+        e.preventDefault()
+        let newItem = { name: newItemName, price: parseInt(newItemPrice) }
+        createNewItem(newItem)
+    }
+
+    //TODO: add error handling
+
     const getItemData = async () => {
-        const response = await fetch('api/store');
-        const data = await response.json();
+        const res = await fetch('api/store');
+        const data = await res.json();
         setItems(data);
         setTimeout(() => setLoading(false), 1000)
     }
 
     const getMax = async () => {
-        const response = await fetch(`api/store/${input}`, { method: "post" })
-        const data = await response.json();
+        validateDone(false);
+        const res = await fetch(`api/store/${input}`)
+        const data = await res.json();
         if (data.length > 0) {
-            setItems(data);
+            setMaxItem(data);
         } else {
             setError(true)
             setErrorMsg("Item not found")
@@ -76,6 +94,36 @@ function FetchData() {
         setTimeout(() => setLoading(false), 1000)
     }
 
+
+    const createNewItem = async (newItem) => {
+        const res = await fetch(`api/store`, {
+            method: 'post',
+            body: JSON.stringify(newItem),
+            headers: {
+                'Accept':'application/json',
+                'Content-type': 'application/json'
+            }
+        })
+        const status = await res.status;
+        if (status == 200) {
+            setNewItemName('')
+            setNewItemPrice('')
+            getItemData()
+        } else {
+            setError(true)
+            setErrorMsg("Error creating Item")
+        }
+    }
+
+    //const updateItem = async (item.id) => {
+    //    const res = await fetch(`api/store`, { method: 'put' })
+    //    const status = await res.status;
+    //}
+
+    //const removeItem = async(item.id) => {
+    //    const res = await fetch(`api/store`, { method: 'delete' })
+    //    const status = await res.status;
+    //}
 
        return (
             <div>
@@ -92,7 +140,18 @@ function FetchData() {
                        <label htmlFor="name">Item Name:</label>
                        <input className="form__input" type="text" name="name" onClick={clearErrors} onChange={e => setInput(e.target.value)} />
                         <button className="form__btn" type="button" onClick={e => handleSubmit(e)}>Submit</button>
-                    </div>
+               </div>
+
+               <h2>Create New Item</h2>
+               <div className="form__container">
+                   <label htmlFor="name">Item Name</label>
+                   <input className="form__input" type="text" name="name" onChange={e => setNewItemName(e.target.value)} />
+
+                   <label htmlFor="price">Price</label>
+                   <input className="form__input" type="text" name="price" onChange={e => setNewItemPrice(e.target.value)} />
+
+                   <button className="form__btn" type="button" onClick={e => handleCreateItem(e)}>Create Item</button>
+               </div>
                 
             </div>
         );
