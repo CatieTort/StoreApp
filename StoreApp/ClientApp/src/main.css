@@ -1,7 +1,7 @@
 ﻿:root {
     --primary-dark: #25283D;
     --dark-purple: #392259;
-    --light-purple: #7B4B94;
+    --light-purple: #9562b0;
     --med-blue: #3E92CC;
     --light-blue: #BBE0FC;
     --white: #ffffff;
@@ -10,6 +10,10 @@
 }
 
 .hidden { visibility: hidden;}
+
+.container {
+    margin: 0px auto;
+}
 
 html, .text {
     font-size: var(--primaryFont);
@@ -20,7 +24,7 @@ html, .text {
     width: 100%;
     height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--dark-purple);
 }
@@ -89,7 +93,8 @@ a.selected {
 .sort__container {
     display: flex;
     justify-content: flex-end;
-    width: 76%;
+    max-width: 450px;
+    margin: 0 auto;
 }
 
 .sort-btn {

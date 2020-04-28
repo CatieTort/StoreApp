@@ -30,7 +30,6 @@ function MaxPrice() {
 
     return (
         <>
-            <NavBar />
             {loading && submit ? <div className="loader__container"><FontAwesomeIcon className="rotate" icon={faSync} /></div> :
                 <div className={!loading ? `result__container background` : `result__container hidden`}>
                     {maxPrice.length > 0 && !loading ?
