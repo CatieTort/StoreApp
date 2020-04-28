@@ -33,11 +33,11 @@ function MaxPrice() {
             <NavBar />
             {loading && submit ? <div className="loader__container"><FontAwesomeIcon className="rotate" icon={faSync} /></div> :
                 <div className={!loading ? `result__container background` : `result__container hidden`}>
-                    {maxPrice && maxPrice.length > 0 && loading === false ?
+                    {maxPrice.length > 0 && !loading ?
                         maxPrice.map(item => {
                             return (<><div style={{fontWeight: 'bold'}}>Max Item Price:</div><div>{item.name}</div>
                                 <div>{item.price}</div></>)
-                        }) : null}
+                        }) : <div className="text">Item not found</div>}
                 </div>}
             <Form getMax={handleGetMax} clearResults={clearResults} />
          </>

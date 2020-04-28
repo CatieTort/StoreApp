@@ -38,7 +38,7 @@ function StoreItems(props) {
                 <div className="text item__price">{item.price}</div>
             </div>
         )
-    }) : "No Items found";
+    }) : <div className="items__row"><div className="text item__name">No Items found</div></div>;
 
 
     return (

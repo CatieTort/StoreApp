@@ -98,6 +98,10 @@ a.selected {
     color: var(--white);
 }
 
+.sort-btn:hover {
+    background-color: var(--light-purple);
+}
+
 .items__table-container {
     display: flex;
     flex-direction: column;
