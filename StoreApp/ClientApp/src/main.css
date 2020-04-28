@@ -207,6 +207,9 @@ a.selected {
     justify-content: center;
     align-items: center;
     max-width: 450px;
+    margin: 20px auto;
+    padding: 0 15px;
+    text-align: center;
     color: var(--primary-dark);
     font-size: 1.5rem;
 }

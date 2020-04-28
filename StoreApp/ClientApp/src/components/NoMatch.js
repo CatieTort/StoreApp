@@ -5,7 +5,7 @@ const NoMatch = () => {
     return (
         <div>
             <NavBar />
-            <p className="notFound___message text">Sorry, the page you are looking for doesn't exist</p>
+            <div className="notFound__message text">Sorry, the page you are looking for doesn't exist</div>
         </div>
     )
 
