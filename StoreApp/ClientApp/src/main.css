@@ -1,9 +1,46 @@
-﻿html {
-    font-size: 16px;
+﻿:root {
+    --primary-dark: #25283D;
+    --dark-purple: #392259;
+    --light-purple: #7B4B94;
+    --med-blue: #3E92CC;
+    --light-blue: #BBE0FC;
+    --white: #ffffff;
+
+    --primaryFont: 16px;
+}
+
+html, .text {
+    font-size: var(--primaryFont);
+    color: var(--primary-dark);
 }
 
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.nav-bar__container {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-purple);
+}
+
+.nav-bar__container > a, div > a {
+    padding: 20px 10px;
+    text-decoration: none;
+    color: var(--light-purple);
+    font-weight: bold;
+}
+
+a.selected {
+    color: var(--white) !important;
+}
+
+.nav-bar__container > a:hover, div > a:hover {
+    color: var(--white);
+    text-decoration: none;
 }
 
 
@@ -19,4 +56,14 @@
     to {
         transform: rotate(359deg);
     }
+}
+
+
+.notFound__message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 450px;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
 }

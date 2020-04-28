@@ -1,23 +1,32 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Home } from './components/Home';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import React, { Component, useState } from 'react';
+import {Switch, Route } from 'react-router';
+import Home from './components/Home';
+import CreateItem from './components/CreateItem';
+import MaxPrice from './components/MaxPrice';
+import NoMatch from './components/NoMatch';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import './main.css'
+import './main.css';
 
 library.add(fas);
 
-export default class App extends Component {
-    static displayName = App.name;
-
+function App (){
+    const displayName = App.name;
     
-
-  render () {
     return (
         <div>
-            <Route exact path='/' component={Home} />
+            <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/add-item' component={CreateItem} />
+                <Route exact path='/max-price' component={MaxPrice} />
+                <Route>
+                    <NoMatch />
+                </Route>
+            </Switch>
         </div>
     );
-  }
+
 }
+
+export default App;

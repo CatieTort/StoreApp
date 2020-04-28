@@ -50,7 +50,7 @@ namespace StoreApp.Controllers
             storeService.Create(item);
         }
 
-        // PUT api/store/`${id}`
+        // PUT api/store/id
         [HttpPut("{id}")]
         public void Put(string id, [FromBody]Items itemChanged)
         {

@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import FetchData from './FetchData';
+import React, { useState, useEffect } from 'react';
+import NavBar from './NavBar';
+import StoreItems from './StoreItems';
 
-export class Home extends Component {
-
-  render () {
+const Home = () => {
+    
     return (
         <div>
-            <FetchData />
+            <NavBar />
+            <StoreItems />
       </div>
     );
-  }
+  
 }
+
+export default Home
