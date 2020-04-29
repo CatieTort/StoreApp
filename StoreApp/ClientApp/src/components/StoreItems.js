@@ -1,5 +1,6 @@
-﻿import React, { useState, useEffect } from 'react'
-import { getItemData, sortByMax } from './FetchData';
+﻿import React, { useState, useEffect } from 'react';
+import getItemData from './FetchData';
+import sortByMax from './FetchData';
 import {  faSync } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

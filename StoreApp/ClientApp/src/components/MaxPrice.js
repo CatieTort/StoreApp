@@ -1,9 +1,8 @@
 ﻿import React, { useState } from 'react'
-import { getMax } from './FetchData';
+import  getMax from './FetchData';
 import Form from './Form';
-import NavBar from './NavBar';
-import { faSync } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function MaxPrice() {
     const [maxPrice, setMaxPrice] = useState([]);
