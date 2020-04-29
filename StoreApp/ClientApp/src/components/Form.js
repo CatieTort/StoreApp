@@ -1,7 +1,7 @@
 ﻿import React, {useState, useEffect} from 'react';
 
 function Form(props) {
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState("")
     const [valid, validateDone] = useState(false);
     const [hasError, setError] = useState(false);
     const [errMsg, setErrorMsg] = useState("");
