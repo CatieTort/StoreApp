@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react'
-import  getMax from './FetchData';
+import { getMax }from './FetchData';
 import Form from './Form';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
