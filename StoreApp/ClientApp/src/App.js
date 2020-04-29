@@ -21,9 +21,6 @@ function App (){
             <Switch>
                 <Route exact path='/' component={StoreItems} />
                 <Route exact path='/max-price' component={MaxPrice} />
-                <Route>
-                    <NoMatch />
-                </Route>
                 </Switch>
                 </div>
         </>
