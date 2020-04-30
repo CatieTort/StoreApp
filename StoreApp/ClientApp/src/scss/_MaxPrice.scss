@@ -1,0 +1,19 @@
+﻿.result__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 40px;
+
+    & > div {
+        padding: 0px 15px;
+    }
+}
+
+.background {
+    max-width: 450px;
+    border-radius: 3px;
+    box-shadow: $box-shadow;
+    background-color: $light-blue;
+}

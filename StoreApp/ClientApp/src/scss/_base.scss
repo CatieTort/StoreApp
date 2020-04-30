@@ -1,0 +1,39 @@
+﻿$primary-dark: #25283D;
+$dark-purple: #392259;
+$light-purple: #9562b0;
+$med-blue: #3E92CC;
+$light-blue: #BBE0FC;
+$white: #ffffff;
+$primary-font: 16px;
+$box-shadow: 0 .10rem .30rem $primary-dark;
+
+.hidden {
+    visibility: hidden;
+}
+
+.container {
+    margin: 0px auto;
+}
+
+html, .text {
+    font-size: $primary-font;
+    color: $primary-dark;
+}
+
+.button {
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+}
+
+.notFound__message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 0 15px;
+    text-align: center;
+    color: $primary-dark;
+    font-size: 1.5rem;
+}

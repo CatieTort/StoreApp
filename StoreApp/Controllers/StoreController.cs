@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StoreApp.Models;
 using StoreApp.Services;
 using Newtonsoft.Json;
 
@@ -41,5 +42,27 @@ namespace StoreApp.Controllers
             return Json(storeService.GetItemMax(name));
         }
 
+        //TODO: Test Post/Put/Delete
+
+        //POST
+        [HttpPost]
+        public void Post([FromBody]Items item)
+        {
+            storeService.Create(item);
+        }
+
+        // PUT api/store/`${id}`
+        [HttpPut("{id}")]
+        public void Put(string id, [FromBody]Items itemChanged)
+        {
+            storeService.Update(id, itemChanged);
+        }
+
+        // DELETE api/store/`${id}`
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            storeService.Remove(id);
+        }
     }
 }

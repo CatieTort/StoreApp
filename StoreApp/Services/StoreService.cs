@@ -62,5 +62,20 @@ namespace StoreApp.Services
           
         }
 
+        public Items Create(Items item)
+        {
+            _items.InsertOne(item);
+            return item;
+        }
+
+        public void Update(string id, Items itemChanged)
+        {
+            _items.ReplaceOne(item => item.Id == id, itemChanged);
+        }
+
+        public void Remove(string id)
+        {
+            _items.DeleteOne(item => item.Id == id);
+        }
     }
 }
