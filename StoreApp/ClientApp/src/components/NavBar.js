@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { faBars, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEye, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const NavBar = () => {
@@ -19,9 +19,12 @@ const NavBar = () => {
             </div>
 
             <div className={drawerOpen ? `nav-bar__sec nav-bar__drawer nav-bar__drawer--open` : `nav-bar__sec nav-bar__drawer nav-bar__drawer--closed`}>
-                <NavLink exact to="/" activeClassName="selected" onClick={() => setDrawer(false)}><FontAwesomeIcon icon={faHome} /></NavLink>
-                <NavLink to="/add-item" activeClassName="selected" onClick={() => setDrawer(false)}>Create Item</NavLink>
-                <NavLink to="/max-price" activeClassName="selected" onClick={() => setDrawer(false)}>Find Max Price</NavLink>
+                <NavLink exact to="/" activeClassName="selected" onClick={() => setDrawer(false)}>
+                    <FontAwesomeIcon icon={faEye} style={{paddingRight: "10px"}} />View All Items</NavLink>
+                <NavLink to="/add-item" activeClassName="selected" onClick={() => setDrawer(false)}>
+                    <FontAwesomeIcon icon={faPlus} style={{ paddingRight: "10px" }} />Create Item</NavLink>
+                <NavLink to="/max-price" activeClassName="selected" onClick={() => setDrawer(false)}>
+                    <FontAwesomeIcon icon={faSearch} style={{ paddingRight: "10px" }} />Search Max Item Price</NavLink>
             </div>
         </div>
         )

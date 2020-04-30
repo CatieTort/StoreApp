@@ -203,8 +203,7 @@ html, .text {
     padding: 10px 20px; }
   .items__header-row > svg {
     align-self: center;
-    padding-left: 120px;
-    flex-grow: 1; }
+    padding-left: 114px; }
 
 .items__row {
   display: flex;
@@ -222,10 +221,13 @@ html, .text {
   .items__row--dropdown-container {
     position: absolute;
     border-radius: 3px;
-    background-color: inherit;
-    height: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 0.1rem 0.3rem #25283D;
+    padding: 15px;
     right: 0;
     visibility: hidden; }
+    .items__row--dropdown-container.show {
+      visibility: visible; }
 
 .items__name {
   padding: 5px 20px; }
@@ -281,6 +283,16 @@ html, .text {
     color: #ffffff; }
   .modal__btn-neg {
     border: 1px solid #777; }
+  .modal__btn:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+    .modal__btn:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .modal__btn:active, .modal__btn:focus {
+    outline: none;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
   .modal__close {
     color: #777;
     font-size: 12px;

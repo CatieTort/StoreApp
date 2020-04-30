@@ -2,7 +2,7 @@
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete'
 import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
-import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown, faSort} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function StoreItems(props) {
@@ -15,7 +15,7 @@ function StoreItems(props) {
     const [loading, setLoading] = useState(true)
     const [editItem, setEditItem] = useState('');
     const [deleteItem, setItemToDelete] = useState('');
-    const [rowDropdown, toggleRowDropdown] = useState(false);
+    const [rowDropdown, setRowDropdown] = useState('');
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -31,11 +31,23 @@ function StoreItems(props) {
     }, [items])
 
 
+    const toggleRowDropdown = (id) => {
+        if (id == rowDropdown) setRowDropdown('')
+        else setRowDropdown(id)
+    }
+
     const handleRemove = (item) => {
         setItemToDelete(item);
         setViewModal(true);
     }
 
+    const sortByPrice = () => {
+        return 
+    }
+
+    const sortByName = () => {
+        return
+    }
 
     const handleSort = () => {
         setLoading(true)
@@ -45,7 +57,7 @@ function StoreItems(props) {
     }
 
     const toggleEdit = (item) => {
-        console.log(item)
+        setEditItem(item.id)
     }
 
     const confirmModal = showModal ? (
@@ -61,11 +73,11 @@ function StoreItems(props) {
                 <div className="text items__name">{item.name}</div>
                 <div className="text items__price">{item.price}</div>
                 <FontAwesomeIcon
-                    onClick={() => toggleRowDropdown(!rowDropdown)}
+                    onClick={() => toggleRowDropdown(item.id)}
                     className="items__row__dropdown-btn"
-                    icon={rowDropdown ? faChevronDown : faChevronLeft} />
-                <div className="items__row--dropdown-container">
-                    <button className="items__row--btn-edit" type="button" onClick={() => toggleEdit(item)}>
+                    icon={rowDropdown === item.id ? faChevronDown : faChevronLeft} />
+                <div className={rowDropdown === item.id ? `items__row--dropdown-container show` : `items__row--dropdown-container`}>
+                    <button className="items__row--btn-edit" type="button" onClick={() => toggleEdit(item.id)}>
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
                     <button className="items__row--btn-delete" type="button" onClick={() => handleRemove(item)}>
@@ -83,9 +95,8 @@ function StoreItems(props) {
                 {loading === false ?
                     <>
                         <div className="items__header-row">
-                            <div>Item Name</div>
-                            <div></div>
-                            <div>Price</div>
+                            <div onClick={() => sortByName()}>Item Name<FontAwesomeIcon icon={faSort} style={{padding: "0px 10px"}} /></div>
+                            <div onClick={() => sortByPrice()}>Price<FontAwesomeIcon icon={faSort} style={{ padding: "0px 10px" }} /></div>
                             <FontAwesomeIcon icon={faEllipsisV} />
                             <div className="items__row--dropdown-container">
                                 <button className="button sort-btn" type="button" onClick={handleSort}>Sort by Max Price</button>
@@ -95,6 +106,7 @@ function StoreItems(props) {
                     : <div className="loader__container"><FontAwesomeIcon className="rotate" icon={faSync} /></div>
                 }
             </div>
+
             {confirmModal}
             </>
         )

@@ -27,8 +27,7 @@
 
         & > svg {
             align-self: center;
-            padding-left: 120px;
-            flex-grow: 1;
+            padding-left: 114px;
         }
     }
 
@@ -55,10 +54,15 @@
         &--dropdown-container {
             position: absolute;
             border-radius: 3px;
-            background-color: inherit;
-            height: 50px;
+            background-color: $white;
+            box-shadow: $box-shadow;
+            padding: 15px;
             right: 0;
             visibility: hidden;
+
+            &.show {
+                visibility: visible;
+            }
         }
     }
 
