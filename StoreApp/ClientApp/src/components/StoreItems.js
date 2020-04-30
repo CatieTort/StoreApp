@@ -2,7 +2,7 @@
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete'
 import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
-import {  faSync, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function StoreItems(props) {
@@ -13,7 +13,9 @@ function StoreItems(props) {
     const [items, setItems] = useState([]);
     const [showModal, setViewModal] = useState(false);
     const [loading, setLoading] = useState(true)
+    const [editItem, setEditItem] = useState('');
     const [deleteItem, setItemToDelete] = useState('');
+    const [rowDropdown, toggleRowDropdown] = useState(false);
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -42,7 +44,6 @@ function StoreItems(props) {
         setLoader(false)
     }
 
-
     const toggleEdit = (item) => {
         console.log(item)
     }
@@ -59,7 +60,11 @@ function StoreItems(props) {
             <div className="items__row" key={item.id}>
                 <div className="text items__name">{item.name}</div>
                 <div className="text items__price">{item.price}</div>
-                <div className="item__row--dropdown-container">
+                <FontAwesomeIcon
+                    onClick={() => toggleRowDropdown(!rowDropdown)}
+                    className="items__row__dropdown-btn"
+                    icon={rowDropdown ? faChevronDown : faChevronLeft} />
+                <div className="items__row--dropdown-container">
                     <button className="items__row--btn-edit" type="button" onClick={() => toggleEdit(item)}>
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
@@ -74,13 +79,17 @@ function StoreItems(props) {
 
     return (
         <>
-            <div className="sort__container"><button className="button sort-btn" type="button" onClick={handleSort}>Sort by Max Price</button></div>
             <div className="items__table-container">
                 {loading === false ?
                     <>
-                    <div className="items__header-row">
-                    <div>Item Name</div>
-                    <div>Price</div>
+                        <div className="items__header-row">
+                            <div>Item Name</div>
+                            <div></div>
+                            <div>Price</div>
+                            <FontAwesomeIcon icon={faEllipsisV} />
+                            <div className="items__row--dropdown-container">
+                                <button className="button sort-btn" type="button" onClick={handleSort}>Sort by Max Price</button>
+                             </div>
                     </div>
                     {tableItems}</>
                     : <div className="loader__container"><FontAwesomeIcon className="rotate" icon={faSync} /></div>

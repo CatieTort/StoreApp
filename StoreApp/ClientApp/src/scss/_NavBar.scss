@@ -27,6 +27,7 @@
 
     &__drawer {
         position: absolute;
+        z-index:2000;
         top: 3.5rem;
         width: 250px;
         border-bottom-right-radius: 3px;

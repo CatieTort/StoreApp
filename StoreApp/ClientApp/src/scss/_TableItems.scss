@@ -5,7 +5,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: start;
-        max-width: 450px;
+        max-width: 400px;
         border-radius: 3px;
         box-shadow: $box-shadow;
         font-family: $font-fam;
@@ -16,14 +16,19 @@
     &__header-row {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         width: 100%;
         font-weight: 600;
-        padding: 0px 25px;
         color: $primary-dark;
 
         & > div {
             padding: 10px 20px;
+        }
+
+        & > svg {
+            align-self: center;
+            padding-left: 120px;
+            flex-grow: 1;
         }
     }
 
@@ -31,22 +36,29 @@
 
     &__row {
         display: flex;
+        position: relative;
         flex-direction: row;
         width: 100%;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 25px;
+        padding: 10px 0px;
 
         &:nth-child(2n) {
             background-color: $light-blue;
         }
 
         &__dropdown-btn {
-
+            color: $primary-dark;
+            padding-right: 15px;
         }
 
-        &__dropdown-container {
-
+        &--dropdown-container {
+            position: absolute;
+            border-radius: 3px;
+            background-color: inherit;
+            height: 50px;
+            right: 0;
+            visibility: hidden;
         }
     }
 
@@ -54,6 +66,10 @@
 
     &__name {
         padding: 5px 20px;
+    }
+
+    &__price {
+        width: 24%;
     }
 }
 

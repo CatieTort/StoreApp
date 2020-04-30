@@ -98,6 +98,7 @@ html, .text {
 
 .nav-bar__drawer {
   position: absolute;
+  z-index: 2000;
   top: 3.5rem;
   width: 250px;
   border-bottom-right-radius: 3px;
@@ -184,7 +185,7 @@ html, .text {
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  max-width: 450px;
+  max-width: 400px;
   border-radius: 3px;
   box-shadow: 0 0.1rem 0.3rem #25283D;
   font-family: "Manrope", sans-serif;
@@ -194,26 +195,43 @@ html, .text {
 .items__header-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   font-weight: 600;
-  padding: 0px 25px;
   color: #25283D; }
   .items__header-row > div {
     padding: 10px 20px; }
+  .items__header-row > svg {
+    align-self: center;
+    padding-left: 120px;
+    flex-grow: 1; }
 
 .items__row {
   display: flex;
+  position: relative;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 25px; }
+  padding: 10px 0px; }
   .items__row:nth-child(2n) {
     background-color: #BBE0FC; }
+  .items__row__dropdown-btn {
+    color: #25283D;
+    padding-right: 15px; }
+  .items__row--dropdown-container {
+    position: absolute;
+    border-radius: 3px;
+    background-color: inherit;
+    height: 50px;
+    right: 0;
+    visibility: hidden; }
 
 .items__name {
   padding: 5px 20px; }
+
+.items__price {
+  width: 24%; }
 
 .sort__container {
   display: flex;
