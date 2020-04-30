@@ -1,25 +1,77 @@
-﻿.nav-bar__container {
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: $dark-purple;
+﻿.nav-bar {
 
-    & > a, div > a {
-        padding: 20px 10px;
-        text-decoration: none;
-        color: $light-purple;
-        font-weight: bold;
+   
+
+    &__button {
+        height: 3.2rem;
+        width: 3rem;
+        position: fixed;
+        top: 0;
+        left: 0px;
+        z-index: 2000;
+        text-align: center;
+        cursor: pointer;
+        background-color: $dark-purple;
+        transition: left .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
 
 
-        &.selected {
-            color: $white !important;
-        }
+    &__container {
+        width: 100%;
+        height: 55px;
+        display: flex;
+        font-family: $font-fam;
+        font-weight: 600;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $dark-purple;
+    }
 
-        &:hover {
-            color: $white;
+    &__drawer {
+        position: absolute;
+        top: 3.5rem;
+        left: 0;
+        width: 250px;
+        border-bottom-right-radius: 3px;
+        background-color: $white;
+        flex-direction: column !important;
+        box-shadow: $box-shadow;
+    }
+
+  
+
+    &__sec {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        & > a {
+            padding: 10px 15px;
             text-decoration: none;
+            color: $light-purple;
+            font-weight: bold;
+            width: 100%;
+
+
+            &.selected {
+                color: $white !important;
+                background: transparent !important;
+            }
+
+            &:hover {
+                color: $white;
+                text-decoration: none;
+                /*Create cool effect here*/
+            }
         }
+    }
+
+    &__title {
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: $white;
+        padding-left: 45px;
+        padding-bottom: 5px;
     }
 }

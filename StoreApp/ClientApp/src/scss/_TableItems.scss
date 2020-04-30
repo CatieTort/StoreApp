@@ -8,6 +8,8 @@
         max-width: 450px;
         border-radius: 3px;
         box-shadow: $box-shadow;
+        font-family: $font-fam;
+        font-weight: 400;
         margin: 40px auto;
     }
 
@@ -16,7 +18,7 @@
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-        font-weight: bold;
+        font-weight: 600;
         padding: 0px 25px;
         color: $primary-dark;
 
