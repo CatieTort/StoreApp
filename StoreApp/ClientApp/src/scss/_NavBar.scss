@@ -1,18 +1,16 @@
 ﻿.nav-bar {
 
-   
+
 
     &__button {
-        height: 3.2rem;
-        width: 3rem;
-        position: fixed;
-        top: 0;
-        left: 0px;
-        z-index: 2000;
-        text-align: center;
+        font-size: 1.5rem;
+        padding-left: 15px;
         cursor: pointer;
-        background-color: $dark-purple;
-        transition: left .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        color: $white;
+
+        &:hover, &.open {
+            color: $light-purple;
+        }
     }
 
 
@@ -30,15 +28,27 @@
     &__drawer {
         position: absolute;
         top: 3.5rem;
-        left: 0;
         width: 250px;
         border-bottom-right-radius: 3px;
         background-color: $white;
         flex-direction: column !important;
         box-shadow: $box-shadow;
+        padding: 15px 20px;
+        height: 100vh;
+        transition: all 175ms ease;
+
+        &--open {
+            left: 0;
+            visibility: visible
+        }
+
+        &--closed {
+            left: -250px;
+            visibility: hidden;
+        }
     }
 
-  
+
 
     &__sec {
         display: flex;
@@ -53,16 +63,19 @@
             font-weight: bold;
             width: 100%;
 
-
-            &.selected {
-                color: $white !important;
-                background: transparent !important;
-            }
-
             &:hover {
                 color: $white;
                 text-decoration: none;
-                /*Create cool effect here*/
+                background-color: $light-purple;
+                border-radius: 3px;
+            }
+
+            &.selected {
+                color: $med-purple;
+
+                &:hover {
+                    background-color: transparent;
+                }
             }
         }
     }
@@ -71,7 +84,11 @@
         font-weight: 800;
         font-size: 1.4rem;
         color: $white;
-        padding-left: 45px;
-        padding-bottom: 5px;
+        padding-left: 15px;
+        text-decoration: none;
+
+        &:hover {
+            background-color: transparent;
+        }
     }
 }

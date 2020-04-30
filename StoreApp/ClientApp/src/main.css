@@ -1,11 +1,13 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
 :root {
   font-size: 16px;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   color: #25283D; }
-
-.hidden {
-  visibility: hidden; }
 
 .container {
   margin: 0px auto; }
@@ -77,16 +79,12 @@ html, .text {
     background-color: #2d77aa; }
 
 .nav-bar__button {
-  height: 3.2rem;
-  width: 3rem;
-  position: fixed;
-  top: 0;
-  left: 0px;
-  z-index: 2000;
-  text-align: center;
+  font-size: 1.5rem;
+  padding-left: 15px;
   cursor: pointer;
-  background-color: #392259;
-  transition: left 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  color: #ffffff; }
+  .nav-bar__button:hover, .nav-bar__button.open {
+    color: #9562b0; }
 
 .nav-bar__container {
   width: 100%;
@@ -101,12 +99,20 @@ html, .text {
 .nav-bar__drawer {
   position: absolute;
   top: 3.5rem;
-  left: 0;
   width: 250px;
   border-bottom-right-radius: 3px;
   background-color: #ffffff;
   flex-direction: column !important;
-  box-shadow: 0 0.1rem 0.3rem #25283D; }
+  box-shadow: 0 0.1rem 0.3rem #25283D;
+  padding: 15px 20px;
+  height: 100vh;
+  transition: all 175ms ease; }
+  .nav-bar__drawer--open {
+    left: 0;
+    visibility: visible; }
+  .nav-bar__drawer--closed {
+    left: -250px;
+    visibility: hidden; }
 
 .nav-bar__sec {
   display: flex;
@@ -119,20 +125,24 @@ html, .text {
     color: #9562b0;
     font-weight: bold;
     width: 100%; }
-    .nav-bar__sec > a.selected {
-      color: #ffffff !important;
-      background: transparent !important; }
     .nav-bar__sec > a:hover {
       color: #ffffff;
       text-decoration: none;
-      /*Create cool effect here*/ }
+      background-color: #9562b0;
+      border-radius: 3px; }
+    .nav-bar__sec > a.selected {
+      color: #6247AA; }
+      .nav-bar__sec > a.selected:hover {
+        background-color: transparent; }
 
 .nav-bar__title {
   font-weight: 800;
   font-size: 1.4rem;
   color: #ffffff;
-  padding-left: 45px;
-  padding-bottom: 5px; }
+  padding-left: 15px;
+  text-decoration: none; }
+  .nav-bar__title:hover {
+    background-color: transparent; }
 
 .loader__container {
   width: 100%;

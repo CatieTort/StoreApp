@@ -9,15 +9,17 @@ $primary-font: 16px;
 $box-shadow: 0 .10rem .30rem $primary-dark;
 $font-fam: 'Manrope', sans-serif;
 
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
 :root {
     font-size: $primary-font;
     font-family: $font-fam;
     font-weight: 400;
     color: $primary-dark;
-}
-
-.hidden {
-    visibility: hidden;
 }
 
 .container {

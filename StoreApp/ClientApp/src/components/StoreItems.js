@@ -1,7 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete'
-import { CSSTransition } from 'react-transition-group';
 import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
 import {  faSync, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -49,31 +48,28 @@ function StoreItems(props) {
     }
 
     const confirmModal = showModal ? (
-      
-        <Modal>
-            <CSSTransition in={showModal} timeout={200} classNames="modal-node">
+            <Modal>
                 <ConfirmDelete deleteItem={deleteItem} showModal={setViewModal} confirmDelete={removeItem} />
-            </CSSTransition>
-         </Modal>
+            </Modal>
 
     ) : null;
    
-    const tableItems = items.length > 0 && loading === false ? items.map(item => {
+    const tableItems = items.length !== 0 && loading === false ? items.map(item => {
         return (
             <div className="items__row" key={item.id}>
-                <div className="text item__name">{item.name}</div>
-                <div className="text item__price">{item.price}</div>
+                <div className="text items__name">{item.name}</div>
+                <div className="text items__price">{item.price}</div>
                 <div className="item__row--dropdown-container">
-                    <button className="item__row--btn-edit" type="button" onClick={() => toggleEdit(item)}>
+                    <button className="items__row--btn-edit" type="button" onClick={() => toggleEdit(item)}>
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
-                    <button className="item__row--btn-delete" type="button" onClick={() => handleRemove(item)}>
+                    <button className="items__row--btn-delete" type="button" onClick={() => handleRemove(item)}>
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                  </div>
             </div>
         )
-    }) : <div className="items__row"><div className="text item__name">No Items found</div></div>;
+    }) : <div className="items__row"><div className="text items__name">No Items found</div></div>;
 
 
     return (

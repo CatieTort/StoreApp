@@ -19,7 +19,7 @@ function App (){
         <>
             <NavBar />
             <div className="container">
-            <Switch>
+                <Switch>
                     <Route exact path='/' component={StoreItems} />
                     <Route exact path='/add-item' component={CreateItem} />
                     <Route exact path='/max-price' component={MaxPrice} />
