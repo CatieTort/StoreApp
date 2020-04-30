@@ -6,13 +6,13 @@ const ConfirmDelete = (props) => {
 
     return (
         <div className="modal__container">
-            <FontAwesomeIcon icon={faTimes} />
+            <FontAwesomeIcon className="modal__close" onClick={() => props.showModal(false)} icon={faTimes} />
             <div className="modal__message">
-                Are you sure you want to remove {props.deleteItem}?
+                Are you sure you want to remove {props.deleteItem.name}?
             </div>
             <div className="modal__btn--container">
-                <button className="button modal__btn-pos" type="button">Yes, Delete</button>
-                <button className="button modal__btn-neg" type="button">No, Cancel</button>
+                <button className="button modal__btn-pos" type="button" onClick={() => props.confirmDelete(props.deleteItem.id)}>Yes, Delete</button>
+                <button className="button modal__btn-neg" type="button" onClick={() => props.showModal(false)}>No, Cancel</button>
             </div>
         </div>
         )

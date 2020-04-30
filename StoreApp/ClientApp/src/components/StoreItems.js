@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete'
+import { CSSTransition } from 'react-transition-group';
 import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
 import {  faSync, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,6 +29,13 @@ function StoreItems(props) {
         }
     }, [items])
 
+
+    const handleRemove = (item) => {
+        setItemToDelete(item);
+        setViewModal(true);
+    }
+
+
     const handleSort = () => {
         setLoading(true)
         let data = sortByMax();
@@ -36,14 +44,18 @@ function StoreItems(props) {
     }
 
 
-    const toggleEdit = (e) => {
-        console.log(e.target.value)
+    const toggleEdit = (item) => {
+        console.log(item)
     }
 
     const confirmModal = showModal ? (
+      
         <Modal>
-            <ConfirmDelete deleteItem={deleteItem} />
-        </Modal>
+            <CSSTransition in={showModal} timeout={200} classNames="modal-node">
+                <ConfirmDelete deleteItem={deleteItem} showModal={setViewModal} confirmDelete={removeItem} />
+            </CSSTransition>
+         </Modal>
+
     ) : null;
    
     const tableItems = items.length > 0 && loading === false ? items.map(item => {
@@ -51,11 +63,11 @@ function StoreItems(props) {
             <div className="items__row" key={item.id}>
                 <div className="text item__name">{item.name}</div>
                 <div className="text item__price">{item.price}</div>
-                <div className="item__row--btn-container">
-                    <button className="item__row--btn-edit" type="button" onClick={e => toggleEdit()}>
+                <div className="item__row--dropdown-container">
+                    <button className="item__row--btn-edit" type="button" onClick={() => toggleEdit(item)}>
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
-                    <button className="item__row--btn-delete" type="button" onClick={(e, item) => removeItem(e, item)}>
+                    <button className="item__row--btn-delete" type="button" onClick={() => handleRemove(item)}>
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                  </div>

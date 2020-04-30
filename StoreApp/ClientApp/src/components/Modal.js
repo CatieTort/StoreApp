@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 const MODAL = document.getElementById('modalRoot');
 
 const Modal = ({children}) => {
-    createPortal(
+   return createPortal(
         <div className="modal">{children}</div>, MODAL
     )
 }

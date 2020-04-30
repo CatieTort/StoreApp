@@ -1,0 +1,74 @@
+﻿.modal {
+    position: absolute;
+    z-index: 2000;
+    top: 0;
+    bottom:0;
+    left:0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0,0,0, .7);
+
+    &__container {
+        background-color: $white;
+        border-radius: 3px;
+        box-shadow: $box-shadow;
+        margin-top: 20%;
+        padding: 20px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__message {
+        padding: 20px 35px;
+    }
+
+    &__btn{
+
+        &--container {
+            width: 250px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 20px;
+        }
+
+        &-pos {
+            background-color: $dark-purple;
+            color: $white;
+        }
+
+        &-neg {
+            border: 1px solid #777;
+        }
+    }
+
+    &__close {
+        color: #777;
+        font-size: 12px;
+        align-self: flex-end;
+        margin-top: -7px;
+    }
+
+    &-node-enter {
+        opacity: 0;
+    }
+
+    &-node-enter-active {
+        opacity: 1;
+        transition: opacity 200ms;
+    }
+
+    &-node-exit {
+        opacity: 1;
+    }
+
+    &-node-exit-active {
+        opacity: 0;
+        transition: opacity 200ms;
+    }
+}
