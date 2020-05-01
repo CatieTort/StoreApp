@@ -2,7 +2,7 @@
 import Modal from './Modal';
 import ConfirmDelete from './ConfirmDelete'
 import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
-import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown, faSort} from '@fortawesome/free-solid-svg-icons'
+import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown, faSort, faSortUp, faSortDown} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function StoreItems(props) {
@@ -18,7 +18,8 @@ function StoreItems(props) {
     const [deleteItem, setItemToDelete] = useState('');
     const [rowDropdown, setRowDropdown] = useState('');
     const [maxDropdownOpen, openMaxDropdown] = useState(false);
-    const [sortClick, setSortClick] = useState(0);
+    const [sortPriceClick, setSortPriceClick] = useState(0);
+    const [sortNameClick, setSortNameClick] = useState(0);
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -31,6 +32,17 @@ function StoreItems(props) {
         }
     }, [items])
 
+    const setSortIcon = (type) => {
+        let iconType = type === "name" ? sortNameClick : sortPriceClick;
+
+        if (iconType === 1) {
+            return (<FontAwesomeIcon icon={faSortUp} style={{ padding: "0px 10px", marginBottom: "-4px" }} />)
+        } else if (iconType === 2) {
+            return (<FontAwesomeIcon icon={faSortDown} style={{ padding: "0px 10px", marginBottom: "2px" }} />)
+        } else{
+            return (<FontAwesomeIcon icon={faSort} style={{ padding: "0px 10px" }} />)
+        }
+    }
 
     const refreshItems = () => {
         let data = getItemData()
@@ -55,34 +67,56 @@ function StoreItems(props) {
         data.then(value => value === 200 ? refreshItems() : props.setErrMsg(`Could not remove ${deleteItem.name}`))
     }
 
-    const sortBy = (type) => {
-           
-        switch (sortClick) {
-            case (0 && type == "price"):
-                setSortClick(1);
-                setItems(items.sort((a, b) => a.price - b.price));
-                break;
-            case (1 && type == "price"):
-                setSortClick(2);
-                setItems(items.sort((a, b) => b.price - a.price));
-                break;
-            case (0 && type == "name"):
-                setSortClick(1);
-                setItems(items.sort((a, b) => a.name - b.name));
-                break;
-            case (1 && type == "name"):
-                setSortClick(2);
-                setItems(items.sort((a, b) => b.name - a.name));
-                break;
-            case 2:
-                setSortClick(0);
-                refreshItems();
-                break;
-            default:
-               break;
-        }
+    const sortByPrice = () => {
+        let itemData = [...items]
+        let filteredItems
         
-        console.log(items, type, sortClick)
+            if (sortPriceClick === 0) {
+                filteredItems = itemData.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+                setSortPriceClick(1)
+            } else if (sortPriceClick === 1) {
+                filteredItems = itemData.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
+                setSortPriceClick(2)
+            } else {
+                setSortPriceClick(0)
+                refreshItems()
+            }
+
+        if (sortPriceClick <= 1) setItems(filteredItems)
+        
+    }
+
+    const sortByName = () => {
+        let itemData = [...items]
+       
+
+        for (let i = 0; i < itemData.length; i++){
+            let min = i
+            for (let j = i + 1; j < itemData.length; j++){
+           
+                if (sortNameClick === 0) {
+                    if (itemData[j].name > itemData[min].name) {
+                        min = j
+                        setSortNameClick(1)
+                    }
+                } else if (sortNameClick === 1) {
+                    if (itemData[j].name < itemData[min].name) {
+                        min = j
+                        setSortNameClick(2)
+                    }
+                } else {
+                    setSortNameClick(0)
+                    refreshItems()
+                    return
+                }
+            }
+            if (i !== min) {
+                let temp = itemData[i];
+                itemData[i] = itemData[min]
+                itemData[min] = temp
+            }
+        }
+       setItems(itemData)
     }
 
     const handleSort = () => {
@@ -143,8 +177,8 @@ function StoreItems(props) {
                 {loading === false ?
                     <>
                         <div className="items__header-row">
-                            <div onClick={() => sortBy("name")}>Item Name<FontAwesomeIcon icon={faSort} style={{padding: "0px 10px"}} /></div>
-                            <div onClick={() => sortBy("price")}>Price<FontAwesomeIcon icon={faSort} style={{ padding: "0px 10px" }} /></div>
+                            <div onClick={() => sortByName()}>Item Name{setSortIcon("name")}</div>
+                            <div onClick={() => sortByPrice()}>Price{setSortIcon()}</div>
                             <FontAwesomeIcon icon={faEllipsisV} onClick={() => openMaxDropdown(!maxDropdownOpen)} />
                             <div className={maxDropdownOpen ? `items__row--dropdown-container  items__row--dropdown-container--sort open` : `items__row--dropdown-container`}>
                                 <div className="sort-btn" onClick={() => handleSort()}>Sort by Max Price</div>
