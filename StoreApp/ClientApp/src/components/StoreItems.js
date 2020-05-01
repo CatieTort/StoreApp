@@ -7,9 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function StoreItems(props) {
 
-      //edit item & remove item buttons/ actions
-     //filter table to view all, sort High > low, Low < high or specific price range in UI;
-    // delete works but on success need to refresh items.
+    //edit item;
+    //remove & edit hover effects;
    
     const [items, setItems] = useState([]);
     const [showModal, setViewModal] = useState(false);
@@ -20,6 +19,8 @@ function StoreItems(props) {
     const [maxDropdownOpen, openMaxDropdown] = useState(false);
     const [sortPriceClick, setSortPriceClick] = useState(0);
     const [sortNameClick, setSortNameClick] = useState(0);
+    const [editItemName, setEditItemName] = useState('');
+    const [editItemPrice, setEditItemPrice] = useState('');
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -119,7 +120,7 @@ function StoreItems(props) {
        setItems(itemData)
     }
 
-    const handleSort = () => {
+    const handleSortMax = () => {
         setLoading(true)
         openMaxDropdown(false);
         let data = sortByMax();
@@ -128,9 +129,20 @@ function StoreItems(props) {
     }
 
     const toggleEdit = (item) => {
+        setEditItem(item)
+        setRowDropdown('')
+    }
 
-        //DO THE EDITS!!;
-        setEditItem(item.id)
+    const submitEdit = () => {
+        //validate name is a string starting with a cap and ending in a number
+        //validate price is a number
+        //cannot be blank
+        //submit edit
+        //updateItem(editItem, {Name: editItemName, Price: parseInt(editItemPrice)})
+    }
+
+    const clearEdit = () => {
+        setEditItem('')
     }
 
     const confirmModal = showModal ? (
@@ -139,16 +151,26 @@ function StoreItems(props) {
         </Modal>
 
     ) : null;
+
+    console.log(editItem)
    
     const tableItems = items.length !== 0 && loading === false ? items.map(item => {
         return (
             <div className="items__row" key={item.id}>
-                <div className="text items__name">{item.name}</div>
-                <div className="text items__price">{item.price}</div>
-                <FontAwesomeIcon
+                {editItem === item.id ? <input className={false ? `edit__input name hasError` : `edit__input name`} type="text" value={editItemName ? editItemName : item.name} onChange={(e) => setEditItemName(e.target.value)}  />
+
+                    : <div className="text items__name">{item.name}</div>}
+                {editItem === item.id ? <input className={false ? `edit__input price hasError` : `edit__input price`} type="text" value={editItemPrice ? editItemPrice : item.price} onChange={(e) => setEditItemPrice(e.target.value)} />
+                    : <div className="text items__price">{item.price}</div>}
+                {editItem === item.id ?
+                    <div className="edit__btns">
+                        <div className="edit__check-container"><FontAwesomeIcon icon={faCheck} onClick={() => submitEdit()} /></div>
+                        <div className="edit__check-container close"><FontAwesomeIcon icon={faTimes} onClick={() => clearEdit()} /></div>
+                    </div>
+                    : <FontAwesomeIcon
                     onClick={() => toggleRowDropdown(item.id)}
                     className="items__row__dropdown-btn"
-                    icon={faChevronLeft} />
+                    icon={faChevronLeft} />}
                 <div className={rowDropdown === item.id ? `items__row--dropdown-container show` : `items__row--dropdown-container`}>
                     <div className="items__row--btn__top-sec">
                     <div className="items__row--btn items__row--btn-edit" onClick={() => toggleEdit(item.id)}>
@@ -169,10 +191,10 @@ function StoreItems(props) {
         )
     }) : <div className="items__row"><div className="text items__name">No Items found</div></div>;
 
-
+    console.log()
     return (
         <>
-            <div>{props.errMsg}</div>
+            <div className="">{props.errMsg}</div>
             <div className="items__table-container">
                 {loading === false ?
                     <>
@@ -181,7 +203,7 @@ function StoreItems(props) {
                             <div onClick={() => sortByPrice()}>Price{setSortIcon()}</div>
                             <FontAwesomeIcon icon={faEllipsisV} onClick={() => openMaxDropdown(!maxDropdownOpen)} />
                             <div className={maxDropdownOpen ? `items__row--dropdown-container  items__row--dropdown-container--sort open` : `items__row--dropdown-container`}>
-                                <div className="sort-btn" onClick={() => handleSort()}>Sort by Max Price</div>
+                                <div className="sort-btn" onClick={() => handleSortMax()}>Sort by Max Price</div>
                              </div>
                     </div>
                     {tableItems}</>

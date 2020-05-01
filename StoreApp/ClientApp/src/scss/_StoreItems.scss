@@ -135,3 +135,51 @@
         cursor: pointer;
     }
 }
+
+.edit {
+    &__input {
+        height: 30px;
+        border: 1px solid #777;
+        font-size: 1rem;
+        width: 125px;
+
+        &.name {
+            padding-left: 10px;
+            margin-left: 10px;
+        }
+
+        &.price {
+            margin-left: -55px;
+            padding-left: 10px;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 64px;
+        margin-left: -60px;
+        margin-right: 10px;
+    }
+
+    &__check-container {
+         background-color: $med-blue;
+         padding: 2px 5px;
+         border-radius: 3px;
+         border: 1px solid $med-blue;
+
+        & > svg {
+            color: $white;
+        }
+
+        &.close {
+            padding: 2px 8px;
+        }
+    }
+}
