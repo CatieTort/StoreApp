@@ -8,7 +8,7 @@ const ConfirmDelete = (props) => {
         <div className="modal__container">
             <FontAwesomeIcon className="modal__close" onClick={() => props.showModal(false)} icon={faTimes} />
             <div className="modal__message">
-                Are you sure you want to remove {props.deleteItem.name}?
+                Are you sure you want to remove <span style={{fontWeight: 800}}>{props.deleteItem.name}</span>?
             </div>
             <div className="modal__btn--container">
                 <button className="button modal__btn-pos" type="button" onClick={() => props.confirmDelete()}>Yes, Delete</button>
