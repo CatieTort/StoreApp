@@ -32,7 +32,8 @@
         return status;
     }   
 
-   export async function updateItem (id, itemChanged) {
+export async function updateItem(id, itemChanged) {
+       console.log(id, itemChanged)
        const res = await fetch(`api/store/${id}`, {
            method: 'put',
            body: JSON.stringify(itemChanged),

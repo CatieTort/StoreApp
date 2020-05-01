@@ -136,10 +136,39 @@ function StoreItems(props) {
 
 
     const submitEdit = () => {
-        let validName = validateInput(props, editItemName, "Name");
-        let validPrice = validateInput(props, editItemPrice, "Price");
+        let validName = ""
+        let validPrice = ""
+        let updatedStatus = ""
+
+        if (editItemName !== "") {
+            validName = validateInput(props, editItemName, "Name");
+        } else if (editItemPrice !== "") {
+            validPrice = validateInput(props, editItemPrice, "Price");
+        }
+       
         if (validName && validPrice) {
-           updateItem(editItem, { Name: validName, Price: validPrice })
+            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: validName, price: validPrice })
+        } else if (validName && validPrice === "") {
+            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: validName, price: editItem.price })
+        } else if (validName === "" && validPrice) {
+            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: editItem.name, price: validPrice })
+        }
+
+        if (updatedStatus !== "") {
+            updatedStatus.then(value => {
+                if (value === 200)
+                    clearEdit()
+                props.clearErrors()
+                refreshItems()
+            })
+        }
+    }
+
+    const clearEditValue = (type) => {
+        if (type === "Name") {
+            setEditItemName(" ")
+        } else {
+            setEditItemPrice(" ")
         }
     }
 
@@ -158,12 +187,22 @@ function StoreItems(props) {
     const tableItems = items.length !== 0 && loading === false ? items.map(item => {
         return (
             <div className="items__row" key={item.id}>
-                {editItem === item.id ? <input className={false ? `edit__input name hasError` : `edit__input name`} type="text" value={editItemName ? editItemName : item.name} onChange={(e) => setEditItemName(e.target.value)}  />
+                {editItem.id === item.id ?
+                    <input className={props.errType === "Name" || props.errType === "both" ? `edit__input name hasError` : `edit__input name`}
+                        type="text"
+                        value={editItemName === "" ? item.name : editItemName}
+                        onChange={(e) => setEditItemName(e.target.value)}
+                        onClick={() => clearEditValue("Name")} />
 
                     : <div className="text items__name">{item.name}</div>}
-                {editItem === item.id ? <input className={false ? `edit__input price hasError` : `edit__input price`} type="text" value={editItemPrice ? editItemPrice : item.price} onChange={(e) => setEditItemPrice(e.target.value)} />
+                {editItem.id === item.id ? <input className={props.errType === "Price" || props.errType === "both" ? `edit__input price hasError` : `edit__input price`}
+                    type="text"
+                    value={editItemPrice === "" ? item.price : editItemPrice}
+                    onChange={(e) => setEditItemPrice(e.target.value)}
+                    onClick={() => clearEditValue("Price")} />
+
                     : <div className="text items__price">{item.price}</div>}
-                {editItem === item.id ?
+                {editItem.id === item.id ?
                     <div className="edit__btns">
                         <div className="edit__check-container"><FontAwesomeIcon icon={faCheck} onClick={() => submitEdit()} /></div>
                         <div className="edit__check-container close"><FontAwesomeIcon icon={faTimes} onClick={() => clearEdit()} /></div>
@@ -174,7 +213,7 @@ function StoreItems(props) {
                     icon={faChevronLeft} />}
                 <div className={rowDropdown === item.id ? `items__row--dropdown-container show` : `items__row--dropdown-container`}>
                     <div className="items__row--btn__top-sec">
-                    <div className="items__row--btn items__row--btn-edit" onClick={() => toggleEdit(item.id)}>
+                    <div className="items__row--btn items__row--btn-edit" onClick={() => toggleEdit(item)}>
                         <FontAwesomeIcon icon={faEdit} />
                         Edit Item
                     </div>

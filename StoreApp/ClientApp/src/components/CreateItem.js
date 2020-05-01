@@ -18,6 +18,21 @@ function CreateItem(props) {
         }
     }, [createSuccess])
 
+    const handleClear = (type) => {
+        if (props.err == true) {
+            if (type === "Price" && props.errType === type) {
+                setNewItemPrice('')
+            } else if (type === "Name" && props.errType === type) {
+                setNewItemName('')
+            } else {
+                setNewItemName('')
+                setNewItemPrice('')
+            }
+            props.clearErrors()
+        }
+            
+    }
+
     const handleCreateItem = (e) => {
         e.preventDefault()
         let validName = validateInput(props, newItemName, "Name");
@@ -26,7 +41,7 @@ function CreateItem(props) {
             let newItem = { name: validName, price: validPrice };
             let status = createNewItem(newItem);
             status.then(value => {
-                if(value.status === 200)
+                if(value === 200)
                 setNewItemName("");
                 setNewItemPrice("");
                 setSuccessMsg(`${validName} has been created`);
@@ -47,10 +62,19 @@ function CreateItem(props) {
             <div className="form__error-msg">{props.errMsg}</div>
             <div className="form__container">
                 <label htmlFor="name">Item Name</label>
-                <input className="form__input" type="text" name="name" onChange={e => setNewItemName(e.target.value)} />
+                <input className={props.errType === "Name" || props.errType === "both" ? `form__input hasError` : `form__input`}
+                    type="text" name="name"
+                    value={newItemName}
+                    onClick={() => handleClear("Name")}
+                    onChange={e => setNewItemName(e.target.value)}
+                />
 
                 <label htmlFor="price">Price</label>
-                <input className="form__input" type="text" name="price" onChange={e => setNewItemPrice(e.target.value)} />
+                <input className={props.errType === "Price" || props.errType === "both" ? `form__input hasError` : `form__input`}
+                    type="text" name="price"
+                    value={newItemPrice}
+                    onClick={() => handleClear("Price")}
+                    onChange={e => setNewItemPrice(e.target.value)} />
 
                 <button className="form__btn" type="button" onClick={e => handleCreateItem(e)}>Create Item</button>
             </div>

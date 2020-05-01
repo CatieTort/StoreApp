@@ -1,7 +1,7 @@
 ﻿
 const prepNameString = (name) => {
     if (isNaN(name)) {
-        let nameCopy = name.split("");
+        let nameCopy = name.trim().split("");
         nameCopy.splice(0, 1, nameCopy[0].toUpperCase());
         return nameCopy.join("");
     } else {
@@ -31,23 +31,28 @@ export const validateInput = (props, input, type) => {
                 props.hasError(true);
                 props.setErrType(type);
                 props.setErrorMsg(`Item ${type} must contain letters`);
+                return false
             }
 
+            console.log(nameInput[nameInput.length -1], parseInt(nameInput[nameInput.length -1]))
             if (isNaN(parseInt(nameInput[nameInput.length - 1]))) {
                 props.hasError(true);
                 props.setErrType(type);
                 props.setErrorMsg("Item Name must end with a number");
+                return false
             } else {
                 let numIndex = numberIndex(nameInput)
                 if (numIndex !== -1) {
                     let inputString = nameInput.split("");
-                    inputString.splice(numIndex - 1, 0, " ");
-                    console.log("Validated Name:", inputString.join(""))
+                    if (inputString[numIndex] !== " ") {
+                        inputString.splice(numIndex, 0, " ");
+                    }
                     return inputString.join("")
                 } else {
                     props.hasError(true);
                     props.setErrType(type);
                     props.setErrorMsg("Item Name must end with a number");
+                    return false
                 }
             }
         } else if (type === "Price") {
@@ -57,10 +62,12 @@ export const validateInput = (props, input, type) => {
                 props.hasError(true);
                 props.setErrType(type);
                 props.setErrorMsg("Price must be a number");
+                return false
             } else if (priceInput <= 0) {
                 props.hasError(true);
                 props.setErrType(type);
                 props.setErrorMsg("Price must greater than 0");
+                return false
             } else {
                 return priceInput
             }
