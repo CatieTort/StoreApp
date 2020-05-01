@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
-import ConfirmDelete from './ConfirmDelete'
-import { getItemData, sortByMax, updateItem, removeItem } from './FetchData';
+import ConfirmDelete from './ConfirmDelete';
+import { validateInput } from './Utils/Validate';
+import { getItemData, sortByMax, updateItem, removeItem } from './Utils/FetchData';
 import { faSync, faEdit, faCheck, faTimes, faEllipsisV, faChevronLeft, faChevronDown, faSort, faSortUp, faSortDown} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -133,12 +134,13 @@ function StoreItems(props) {
         setRowDropdown('')
     }
 
+
     const submitEdit = () => {
-        //validate name is a string starting with a cap and ending in a number
-        //validate price is a number
-        //cannot be blank
-        //submit edit
-        //updateItem(editItem, {Name: editItemName, Price: parseInt(editItemPrice)})
+        let validName = validateInput(props, editItemName, "Name");
+        let validPrice = validateInput(props, editItemPrice, "Price");
+        if (validName && validPrice) {
+           updateItem(editItem, { Name: validName, Price: validPrice })
+        }
     }
 
     const clearEdit = () => {
@@ -190,7 +192,6 @@ function StoreItems(props) {
         )
     }) : <div className="items__row"><div className="text items__name">No Items found</div></div>;
 
-    console.log()
     return (
         <>
             <div className="">{props.errMsg}</div>

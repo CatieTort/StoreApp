@@ -4,10 +4,12 @@ import Form from './Form';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function MaxPrice() {
+function MaxPrice(props) {
     const [maxPrice, setMaxPrice] = useState([]);
     const [loading, setLoading] = useState(true)
     const [submit, setSubmit] = useState(false)
+
+    let formProps = { ...props, handleGetMax, clearResults }
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -26,7 +28,6 @@ function MaxPrice() {
         setLoader(false)
     }
 
-
     return (
         <>
             <h2>Search Items</h2>
@@ -38,7 +39,7 @@ function MaxPrice() {
                                 <div>{item.price}</div></>)
                         }) : <div className="text">Item not found</div>}
                 </div>}
-            <Form getMax={handleGetMax} clearResults={clearResults} />
+            <Form {...formProps}/>
          </>
         )
 }

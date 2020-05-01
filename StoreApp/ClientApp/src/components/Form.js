@@ -1,54 +1,31 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { validateInput } from './components/Utils/Validate';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function Form(props) {
     const [input, setInput] = useState("")
-    const [valid, validateDone] = useState(false);
 
 
     useEffect(() => {
-        if(valid === true) {
+        if(props.valid === true) {
             props.getMax(input)
-            validateDone(false)
+            props.validateDone(false)
         }
-    }, [valid])
+    }, [props.valid])
 
-    const clearErrors = () => {
-         props.setError(false);
-         props.setErrorMsg('')
-    }
 
     const handleClear = () => {
         props.clearResults()
         setInput('')
-        if(props.hasError == true) clearErrors()
+        if(props.hasError == true) props.clearErrors()
     }
 
-    const validateInput = () => {
-    
-        if (input === "") {
-            props.setError(true);
-            props.setErrorMsg("Please enter an Item name");
-        } else {
-            let inputString = input.split("");
-            inputString.splice(0, 1, inputString[0].toUpperCase());
-
-            if (inputString[4] !== " ") {
-                inputString.splice(4, 0, " ");
-            }
-            
-            if (typeof parseInt(inputString[inputString.length - 1]) == "number") {
-                setInput(inputString.join(""))
-            } 
-            validateDone(true);
-        }
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        validateInput()
+        validateInput(props, input, "Name")
     }
 
 

@@ -16,8 +16,28 @@ function App (){
     const displayName = App.name;
 
     const [err, hasError] = useState(false);
-    const [errMsg, setErrorMsg] = useState('')
-    let errorProps = {err, hasError, errMsg, setErrorMsg}
+    const [errType, setErrType] = useState('');
+    const [errMsg, setErrorMsg] = useState('');
+    const [valid, validateDone] = useState(false);
+
+    const clearErrors = () => {
+        setError(false);
+        setErrType('');
+        setErrorMsg('');
+        validateDone(false);
+    }
+
+    let validateProps = {
+        err,
+        hasError,
+        errType,
+        setErrType,
+        errMsg,
+        setErrorMsg,
+        valid,
+        validateDone,
+        clearErrors
+    }
 
     return (
         <>
@@ -25,13 +45,13 @@ function App (){
             <div className="container">
                 <Switch>
                     <Route exact path='/'>
-                        <StoreItems {...errorProps}/>
+                        <StoreItems {...validateProps}/>
                     </Route>
                     <Route exact path='/add-item'>
-                        <CreateItem {...errorProps} />
+                        <CreateItem {...validateProps} />
                     </Route>
                     <Route exact path='/search-price'>
-                            <MaxPrice {...errorProps} />
+                            <MaxPrice {...validateProps} />
                     </Route> 
                     <Route component={NoMatch} />
             </Switch>

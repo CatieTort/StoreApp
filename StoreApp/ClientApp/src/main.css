@@ -286,7 +286,8 @@ html, .text {
   height: 30px;
   border: 1px solid #777;
   font-size: 1rem;
-  width: 125px; }
+  width: 125px;
+  border-radius: 3px; }
   .edit__input.name {
     padding-left: 10px;
     margin-left: 10px; }

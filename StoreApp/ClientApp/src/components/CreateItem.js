@@ -1,5 +1,6 @@
 ﻿import React, { useState } from 'react';
-import { createNewItem } from "./FetchData"
+import { validateInput } from './Utils/Validate';
+import { createNewItem } from "./Utils/FetchData"
 
 function CreateItem(props) {
 
@@ -8,18 +9,13 @@ function CreateItem(props) {
 
     const handleCreateItem = (e) => {
         e.preventDefault()
-        let newItem = { name: newItemName, price: parseInt(newItemPrice) }
-        createNewItem(newItem)
+        let validName = validateInput(props, newItemName, "Name")
+        let validPrice = validateInput(props, parseInt(newItemPrice), "Price")
+        if (validName && validPrice) {
+            let newItem = { name: validName, price: validPrice }
+            createNewItem(newItem)
+        }
     }
-
-     //if (status == 200) {
-    //    setNewItemName('')
-    //    setNewItemPrice('')
-    //    getItemData()
-    //} else {
-    //    setError(true)
-    //    setErrorMsg("Error creating Item")
-    //}
 
 
     return (
