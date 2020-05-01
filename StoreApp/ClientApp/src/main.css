@@ -250,7 +250,7 @@ html, .text {
       visibility: visible; }
     .items__row--dropdown-container--sort {
       top: 41px;
-      box-shadow: 3px 2px 11px -8px rgba(0, 0, 0, 0.75); }
+      box-shadow: 2px 1px 14px -8px rgba(0, 0, 0, 0.75); }
       .items__row--dropdown-container--sort.open {
         visibility: visible; }
   .items__row--btn {

@@ -152,7 +152,6 @@ function StoreItems(props) {
 
     ) : null;
 
-    console.log(editItem)
    
     const tableItems = items.length !== 0 && loading === false ? items.map(item => {
         return (
