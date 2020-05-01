@@ -38,6 +38,23 @@ html, .text {
     border: none;
     padding: 10px 15px;
     font-size: 1rem;
+
+    &:hover {
+        transform: translateY(-.2rem);
+        box-shadow: 0 0.3rem 0.4rem rgba(0,0,0, .2);
+
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translateY(.1rem);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0, .2);
+    }
 }
 
 .notFound__message {

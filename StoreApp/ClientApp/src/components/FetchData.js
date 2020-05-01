@@ -31,15 +31,6 @@
         const status = await res.status;
         return status;
     }   
-    //if (status == 200) {
-    //    setNewItemName('')
-    //    setNewItemPrice('')
-    //    getItemData()
-    //} else {
-    //    setError(true)
-    //    setErrorMsg("Error creating Item")
-    //}
-
 
    export async function updateItem (id, itemChanged) {
        const res = await fetch(`api/store/${id}`, {

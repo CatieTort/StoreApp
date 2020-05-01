@@ -14,15 +14,25 @@ library.add(fas);
 
 function App (){
     const displayName = App.name;
-    
+
+    const [err, hasError] = useState(false);
+    const [errMsg, setErrorMsg] = useState('')
+    let errorProps = {err, hasError, errMsg, setErrorMsg}
+
     return (
         <>
             <NavBar />
             <div className="container">
                 <Switch>
-                    <Route exact path='/' component={StoreItems} />
-                    <Route exact path='/add-item' component={CreateItem} />
-                    <Route exact path='/max-price' component={MaxPrice} />
+                    <Route exact path='/'>
+                        <StoreItems {...errorProps}/>
+                    </Route>
+                    <Route exact path='/add-item'>
+                        <CreateItem {...errorProps} />
+                    </Route>
+                    <Route exact path='/search-price'>
+                            <MaxPrice {...errorProps} />
+                    </Route> 
                     <Route component={NoMatch} />
             </Switch>
            </div>

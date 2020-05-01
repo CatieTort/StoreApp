@@ -23,7 +23,7 @@ const NavBar = () => {
                     <FontAwesomeIcon icon={faEye} style={{paddingRight: "10px"}} />View All Items</NavLink>
                 <NavLink to="/add-item" activeClassName="selected" onClick={() => setDrawer(false)}>
                     <FontAwesomeIcon icon={faPlus} style={{ paddingRight: "10px" }} />Create Item</NavLink>
-                <NavLink to="/max-price" activeClassName="selected" onClick={() => setDrawer(false)}>
+                <NavLink to="/search-price" activeClassName="selected" onClick={() => setDrawer(false)}>
                     <FontAwesomeIcon icon={faSearch} style={{ paddingRight: "10px" }} />Search Max Item Price</NavLink>
             </div>
         </div>
