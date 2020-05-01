@@ -16,6 +16,9 @@ function CreateItem(props) {
         if (createSuccess === true) {
             routeOnSuccess()
         }
+        if (newItemName === "" && newItemPrice === "" && props.err) {
+            props.clearErrors()
+        }
     }, [createSuccess])
 
     const handleClear = (type) => {
@@ -35,16 +38,16 @@ function CreateItem(props) {
 
     const handleCreateItem = (e) => {
         e.preventDefault()
-        let validName = validateInput(props, newItemName, "Name");
-        let validPrice = validateInput(props, parseInt(newItemPrice), "Price");
-        if (validName && validPrice) {
-            let newItem = { name: validName, price: validPrice };
-            let status = createNewItem(newItem);
+
+        let validData = validateInput(props, newItemName, newItemPrice);
+
+        if (validData.name && validData.price) {
+            let status = createNewItem(validData);
             status.then(value => {
                 if(value === 200)
                 setNewItemName("");
                 setNewItemPrice("");
-                setSuccessMsg(`${validName} has been created`);
+                setSuccessMsg(`${validData.name} has been created`);
                 setCreateSuccess(true);
             })
         }
@@ -54,13 +57,14 @@ function CreateItem(props) {
         setTimeout(() => history.push("/"), 1000);
     }
 
-
     return (
-        <>
+        <div className="create-item__container">
             <h2>Create New Item</h2>
-            <div className="form__success">{successMsg}</div>
-            <div className="form__error-msg">{props.errMsg}</div>
-            <div className="form__container">
+            <div className="create-item__message-container">
+                {successMsg !== "" ? <div className="create-item__success">{successMsg}</div> : null}
+                {props.errMsg !== ""  ? <div className="create-item__error-msg">{props.errMsg}</div> : null}
+            </div>
+            <form onSubmit={e => handleCreateItem(e)} className="form__container">
                 <label htmlFor="name">Item Name</label>
                 <input className={props.errType === "Name" || props.errType === "both" ? `form__input hasError` : `form__input`}
                     type="text" name="name"
@@ -76,9 +80,9 @@ function CreateItem(props) {
                     onClick={() => handleClear("Price")}
                     onChange={e => setNewItemPrice(e.target.value)} />
 
-                <button className="form__btn" type="button" onClick={e => handleCreateItem(e)}>Create Item</button>
-            </div>
-        </>
+                <button type="submit" className="button form__btn">Create Item</button>
+            </form>
+        </div>
         )
 }
 

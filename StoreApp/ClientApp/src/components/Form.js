@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { validateInput } from './Utils/Validate';
+import { validateName } from './Utils/Validate';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -9,7 +9,6 @@ function Form(props) {
 
 
     const handleClear = () => {
-        console.log("clear")
         props.clearResults()
         setInput("")
         if(props.err == true) props.clearErrors()
@@ -18,7 +17,7 @@ function Form(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        let validName = validateInput(props, input, "Name")
+        let validName = validateName(props, input)
         if (validName !== false) {
             props.handleGetMax(validName);
         }

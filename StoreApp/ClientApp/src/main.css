@@ -67,7 +67,8 @@ html, .text {
   align-items: center;
   font-weight: bold;
   color: red;
-  padding: 20px; }
+  padding: 20px;
+  padding-bottom: 0px; }
 
 .form__input {
   border: 1px solid #777;
@@ -360,3 +361,32 @@ html, .text {
     font-size: 12px;
     align-self: flex-end;
     margin-top: -7px; }
+
+.create-item__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px; }
+  .create-item__container > h2 {
+    padding-bottom: 20px; }
+
+.create-item__error-msg, .create-item__success {
+  padding: 0px; }
+
+.create-item__error-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: red; }
+
+.create-item__success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #9562b0;
+  font-size: 1.5rem; }
+
+.create-item__message-container {
+  padding: 20px; }

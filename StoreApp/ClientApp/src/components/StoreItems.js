@@ -8,9 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function StoreItems(props) {
 
-    //edit item;
-    //remove & edit hover effects
-   
     const [items, setItems] = useState([]);
     const [showModal, setViewModal] = useState(false);
     const [loading, setLoading] = useState(true)
@@ -136,31 +133,30 @@ function StoreItems(props) {
 
 
     const submitEdit = () => {
-        let validName = ""
-        let validPrice = ""
+        let validData
         let updatedStatus = ""
 
-        if (editItemName !== "") {
-            validName = validateInput(props, editItemName, "Name");
-        } else if (editItemPrice !== "") {
-            validPrice = validateInput(props, editItemPrice, "Price");
-        }
-       
-        if (validName && validPrice) {
-            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: validName, price: validPrice })
-        } else if (validName && validPrice === "") {
-            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: validName, price: editItem.price })
-        } else if (validName === "" && validPrice) {
-            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: editItem.name, price: validPrice })
+        if (editItemName !== "" && editItemPrice !== "") {
+            validData = validateInput(props, editItemName, editItemPrice);
+        } else if (editItemName !== "" && editItemPrice === "") {
+            validData = validateInput(props, editItemName, editItem.price)
+        } else if (editItemName === "" && editItemPrice !== "") {
+            validData = validateInput(props, editItem.name, editItemPrice)
+        } else {
+            return false
         }
 
-        if (updatedStatus !== "") {
-            updatedStatus.then(value => {
-                if (value === 200)
-                    clearEdit()
-                props.clearErrors()
-                refreshItems()
-            })
+        if (validData.name && validData.price && props.valid) {
+            updatedStatus = updateItem(editItem.id, { id: editItem.id, name: validData.name, price: validData.price })
+
+            if (updatedStatus !== "") {
+                updatedStatus.then(value => {
+                    if (value === 200)
+                        clearEdit()
+                    props.clearErrors()
+                    refreshItems()
+                })
+            }
         }
     }
 
@@ -174,6 +170,7 @@ function StoreItems(props) {
 
     const clearEdit = () => {
         setEditItem('')
+        props.clearErrors()
     }
 
     const confirmModal = showModal ? (
@@ -233,7 +230,7 @@ function StoreItems(props) {
 
     return (
         <>
-            <div className="">{props.errMsg}</div>
+            <div className="form__error-msg">{props.errMsg}</div>
             <div className="items__table-container">
                 {loading === false ?
                     <>

@@ -1,0 +1,37 @@
+﻿.create-item {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+
+        & > h2 {
+            padding-bottom: 20px;
+        }
+    }
+
+    &__error-msg, &__success {
+        padding: 0px;
+    }
+
+    &__error-msg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: red;
+    }
+
+    &__success {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        color: $light-purple;
+        font-size: 1.5rem;
+    }
+
+    &__message-container {
+        padding: 20px;
+    }
+}
