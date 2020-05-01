@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { validateName } from './Utils/Validate';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Form(props) {
     const [input, setInput] = useState("")
 
+    useEffect(() => {
+        if (props.err && input === "") {
+            props.clearErrors()
+        }
+    }, [input])
+    
 
     const handleClear = () => {
         props.clearResults()
@@ -25,7 +31,7 @@ function Form(props) {
 
 
     const maxPriceForm = (<><div className="form__error-msg">{props.errMsg}</div>
-        <div className="form__container">
+        <form onSubmit={e => handleSubmit(e)} className="form__container">
             <label htmlFor="name">Item Name:</label>
             <input
                 className={props.errType === "Name" || props.errType === "both"  ? `form__input hasError` : `form__input`}
@@ -34,8 +40,8 @@ function Form(props) {
                 onClick={() => handleClear()}
                 onChange={e => setInput(e.target.value)}
             />
-            <button className="button form__btn" type="button" onClick={e => handleSubmit(e)}><FontAwesomeIcon icon={faSearch} /></button>
-            </div></>)
+            <button className={props.err ? "form__btn search hasError" : "form__btn search"} type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+            </form></>)
 
     return (
         <>

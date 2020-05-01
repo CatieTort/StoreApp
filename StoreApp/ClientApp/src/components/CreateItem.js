@@ -54,7 +54,7 @@ function CreateItem(props) {
     }
 
     const routeOnSuccess = () => {
-        setTimeout(() => history.push("/"), 1000);
+        setTimeout(() => history.push("/"), 1500);
     }
 
     return (

@@ -15,6 +15,7 @@ const ConfirmDelete = (props) => {
                 <button className="button modal__btn-neg" type="button" onClick={() => props.showModal(false)}>No, Cancel</button>
             </div>
         </div>
+        
         )
 }
 

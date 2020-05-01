@@ -3,8 +3,9 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 40px;
     height: 40px;
+    padding: 20px 20px 20px 10px;
 
     & > div {
         padding: 0px 15px;
@@ -16,4 +17,14 @@
     border-radius: 3px;
     box-shadow: $box-shadow;
     background-color: $light-blue;
+}
+
+
+.results {
+    display: flex;
+    justify-content: space-between;
+    width: 97px;
+    background-color: #fff;
+    padding: 5px 15px !important;
+    border-radius: 3px;
 }

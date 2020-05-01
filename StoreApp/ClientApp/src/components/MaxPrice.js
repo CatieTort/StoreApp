@@ -14,6 +14,8 @@ function MaxPrice(props) {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
     }
 
+    
+
     const clearResults = () => {
         setMaxPrice([])
         setSubmit(false)
@@ -38,18 +40,18 @@ function MaxPrice(props) {
     let formProps = { ...props, handleGetMax, clearResults }
 
     return (
-        <>
+        <div className="max-price__container">
             <h2>Search Items</h2>
             <Form {...formProps} />
             {loading && submit ? <div className="loader__container"><FontAwesomeIcon className="rotate" icon={faSync} /></div> :
                 <div className={!loading ? `result__container background` : `result__container hidden`}>
                     {noItems === "" && !loading && maxPrice.length > 0 ?
                         maxPrice.map(item => {
-                            return (<Fragment key={item.id}><div style={{ fontWeight: 'bold' }}>Max Item Price:</div><div>{item.name}</div>
-                                <div>{item.price}</div></Fragment>)
+                            return (<Fragment key={item.id}><div style={{ fontWeight: 'bold' }}>Max Item Price:</div><div className="results"><div>{item.name}</div>
+                                <div>{item.price}</div></div></Fragment>)
                         }) : <div className="text">{noItems}</div>}
                 </div>}
-         </>
+         </div>
         )
 }
 

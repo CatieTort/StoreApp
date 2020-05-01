@@ -35,11 +35,11 @@ function StoreItems(props) {
         let iconType = type === "name" ? sortNameClick : sortPriceClick;
 
         if (iconType === 1) {
-            return (<FontAwesomeIcon icon={faSortUp} style={{ padding: "0px 10px", marginBottom: "-4px" }} />)
+            return (<FontAwesomeIcon icon={faSortUp} style={{ padding: "0px 10px", marginBottom: "-4px", cursor: "pointer"}} />)
         } else if (iconType === 2) {
-            return (<FontAwesomeIcon icon={faSortDown} style={{ padding: "0px 10px", marginBottom: "2px" }} />)
+            return (<FontAwesomeIcon icon={faSortDown} style={{ padding: "0px 10px", marginBottom: "2px", cursor: "pointer"}} />)
         } else{
-            return (<FontAwesomeIcon icon={faSort} style={{ padding: "0px 10px" }} />)
+            return (<FontAwesomeIcon icon={faSort} style={{ padding: "0px 10px", cursor: "pointer"}} />)
         }
     }
 
@@ -174,9 +174,9 @@ function StoreItems(props) {
     }
 
     const confirmModal = showModal ? (
-        <Modal>
-            <ConfirmDelete deleteItem={deleteItem} showModal={setViewModal} confirmDelete={handleRemove} />
-        </Modal>
+            <Modal>
+                <ConfirmDelete deleteItem={deleteItem} showModal={setViewModal} confirmDelete={handleRemove} />
+            </Modal>
 
     ) : null;
 
