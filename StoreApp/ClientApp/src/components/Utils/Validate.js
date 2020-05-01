@@ -21,18 +21,21 @@ const numberIndex = (name) => {
 export const validateInput = (props, input, type) => {
 
     if (input === "") {
-        props.setError(true);
+        props.hasError(true);
+        props.setErrType("both");
         props.setErrorMsg(`Item ${type} cannot be blank`);
     } else {
         if (type === "Name") {
             let nameInput = prepNameString(input);
             if (nameInput === false) {
-                props.setError(true);
+                props.hasError(true);
+                props.setErrType(type);
                 props.setErrorMsg(`Item ${type} must contain letters`);
             }
 
             if (isNaN(parseInt(nameInput[nameInput.length - 1]))) {
-                props.setError(true);
+                props.hasError(true);
+                props.setErrType(type);
                 props.setErrorMsg("Item Name must end with a number");
             } else {
                 let numIndex = numberIndex(nameInput)
@@ -42,7 +45,8 @@ export const validateInput = (props, input, type) => {
                     console.log("Validated Name:", inputString.join(""))
                     return inputString.join("")
                 } else {
-                    props.setError(true);
+                    props.hasError(true);
+                    props.setErrType(type);
                     props.setErrorMsg("Item Name must end with a number");
                 }
             }
@@ -50,10 +54,12 @@ export const validateInput = (props, input, type) => {
             let priceInput = parseInt(input);
 
             if (isNaN(priceInput)) {
-                props.setError(true);
+                props.hasError(true);
+                props.setErrType(type);
                 props.setErrorMsg("Price must be a number");
             } else if (priceInput <= 0) {
-                props.setError(true);
+                props.hasError(true);
+                props.setErrType(type);
                 props.setErrorMsg("Price must greater than 0");
             } else {
                 return priceInput

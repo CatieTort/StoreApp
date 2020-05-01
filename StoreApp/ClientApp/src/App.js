@@ -21,7 +21,7 @@ function App (){
     const [valid, validateDone] = useState(false);
 
     const clearErrors = () => {
-        setError(false);
+        hasError(false);
         setErrType('');
         setErrorMsg('');
         validateDone(false);

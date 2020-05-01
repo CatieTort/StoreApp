@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function StoreItems(props) {
 
     //edit item;
-    //remove & edit hover effects;
+    //remove & edit hover effects
    
     const [items, setItems] = useState([]);
     const [showModal, setViewModal] = useState(false);
