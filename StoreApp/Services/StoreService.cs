@@ -29,7 +29,7 @@ namespace StoreApp.Services
 
         public List<Items> GetMax()
         {
-            var itemList = _items.AsQueryable().OrderByDescending(i => i.Price).ToList();
+            List<Items> itemList = _items.AsQueryable().OrderByDescending(i => i.Price).ToList();
             var groupedList = itemList.GroupBy(i => i.Name).SelectMany(g => g).ToList();
 
             return groupedList;

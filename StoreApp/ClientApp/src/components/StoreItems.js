@@ -19,6 +19,7 @@ function StoreItems(props) {
     const [sortNameClick, setSortNameClick] = useState(0);
     const [editItemName, setEditItemName] = useState('');
     const [editItemPrice, setEditItemPrice] = useState('');
+    const [noItems, setNoItems] = useState('');
 
     const setLoader = (bool) => {
         bool === false ? setTimeout(() => setLoading(false), 1000) : setLoading(true);
@@ -45,7 +46,13 @@ function StoreItems(props) {
 
     const refreshItems = () => {
         let data = getItemData()
-        data.then(value => { setItems(value) });
+        data.then(value => {
+            if (value.length > 0) {
+                setItems(value)
+            } else {
+                setNoItems("No Items found")
+            } 
+        });
         setLoader(false)
     }
 
@@ -181,7 +188,7 @@ function StoreItems(props) {
     ) : null;
 
    
-    const tableItems = items.length !== 0 && loading === false ? items.map(item => {
+    const tableItems = items.length !== 0 && noItems === "" && !loading ? items.map(item => {
         return (
             <div className="items__row" key={item.id}>
                 {editItem.id === item.id ?
@@ -226,13 +233,13 @@ function StoreItems(props) {
                  </div>
             </div>
         )
-    }) : <div className="items__row"><div className="text items__name">No Items found</div></div>;
+    }) : <div className="items__row"><div className="text items__name">{noItems}</div></div>;
 
     return (
         <>
             <div className="form__error-msg">{props.errMsg}</div>
             <div className="items__table-container">
-                {loading === false ?
+                {!loading && items.length > 0 && noItems === "" ?
                     <>
                         <div className="items__header-row">
                             <div onClick={() => sortByName()}>Item Name{setSortIcon("name")}</div>
